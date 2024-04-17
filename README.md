@@ -20,6 +20,7 @@ Here's some prerequisite details before jumping into this project.
 - `equatable`
 - `flutter_bloc`
 - `shared_preferences`
+- `pointycastle`
 
 ## Author
 - Tyler Suehr
