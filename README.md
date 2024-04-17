@@ -6,6 +6,9 @@ screens using `go_router` as the underlying navigation mechanism. Some routes ar
 to the screen. The device user is prompted to verify their identity using a
 configured identity verification mechanism.
 
+## Example
+<img src="https://github.com/tylersuehr7/flutter-verify-identity/blob/main/sample.gif" width="200">
+
 ## Getting Started
 Here's some prerequisite details before jumping into this project.
 
