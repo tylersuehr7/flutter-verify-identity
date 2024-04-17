@@ -1,5 +1,10 @@
 import 'package:demo_verify/application/application.dart';
+import 'package:flutter/cupertino.dart';
 
-void main() {
+import 'injection.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await prepareDependencies();
   Application.run();
 }
