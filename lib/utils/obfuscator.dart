@@ -1,7 +1,7 @@
 abstract class Obfuscator {
-  final String _raw;
+  final String raw;
 
-  const Obfuscator(this._raw);
+  const Obfuscator(this.raw);
 
   /// Obfuscates the underlying passphrase.
   ///
