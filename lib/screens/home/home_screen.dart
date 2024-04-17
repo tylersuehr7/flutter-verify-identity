@@ -1,4 +1,3 @@
-import 'package:demo_verify/screens/change_pin/change_pin_screen.dart';
 import 'package:demo_verify/screens/protected/protected_screen.dart';
 import 'package:demo_verify/screens/unprotected/unprotected_screen.dart';
 import 'package:demo_verify/utils/context_extensions.dart';
@@ -29,11 +28,6 @@ class HomeScreen extends StatelessWidget {
             _HomeListItem(
               "Open Protected Route",
               onTap: () => context.verifyAndPushNamed(ProtectedScreen.screenName, pathParameters: {"someId": "abc123"}),
-            ),
-            const _HomeListItemHeader("Settings", showDivider: true),
-            _HomeListItem(
-              "Change Pin",
-              onTap: () => context.pushNamed(ChangePinScreen.screenName),
             ),
           ],
         ),

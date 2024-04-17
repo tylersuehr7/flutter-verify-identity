@@ -1,6 +1,6 @@
-import 'package:demo_verify/screens/change_pin/change_pin_screen.dart';
 import 'package:demo_verify/screens/home/home_screen.dart';
 import 'package:demo_verify/screens/protected/protected_screen.dart';
+import 'package:demo_verify/screens/set_pin/set_pin_screen.dart';
 import 'package:demo_verify/screens/unprotected/unprotected_screen.dart';
 import 'package:demo_verify/screens/verification/verification_screen.dart';
 import 'package:flutter/material.dart';

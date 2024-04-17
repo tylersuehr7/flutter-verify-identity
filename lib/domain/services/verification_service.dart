@@ -1,6 +1,7 @@
 import 'package:demo_verify/domain/exceptions/missing_verification_settings_exception.dart';
 import 'package:demo_verify/domain/exceptions/unable_to_verify_identity_exception.dart';
 import 'package:demo_verify/domain/models/identity.dart';
+import 'package:demo_verify/domain/models/verification_data.dart';
 import 'package:demo_verify/domain/models/verification_mode.dart';
 import 'package:demo_verify/domain/models/verification_settings.dart';
 import 'package:demo_verify/domain/repositories/verification_settings_repository.dart';
@@ -21,7 +22,17 @@ final class VerificationService {
   }
 
   Future<void> configurePin(final String pin) async {
+    // TODO: use cryptography here
 
+    final VerificationSettings settings = VerificationSettings(
+      mode: VerificationMode.pin,
+      data: VerificationData(
+        salt: "insecure_example",
+        data: pin,
+      ),
+    );
+
+    await _verificationSettingsRepo.setVerificationSettings(settings);
   }
 
   Future<void> clearPin() async {
@@ -43,6 +54,10 @@ final class VerificationService {
       throw const UnableToVerifyIdentityException();
     }
 
-    // TODO: verify pin
+    // TODO: use cryptography here
+
+    if (pin != settings.data.data) {
+      throw const UnableToVerifyIdentityException();
+    }
   }
 }

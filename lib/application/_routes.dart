@@ -31,9 +31,9 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      name: ChangePinScreen.screenName,
+      name: SetPinScreen.screenName,
       path: "/change-pin",
-      builder: (context, state) => const ChangePinScreen(),
+      builder: (context, state) => const SetPinScreen(),
     ),
   ],
 );

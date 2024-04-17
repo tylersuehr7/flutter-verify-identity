@@ -16,7 +16,6 @@ class SetPinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return BlocProvider<_SetPinController>(
       create: (_) => _SetPinController(),
       child: Scaffold(
