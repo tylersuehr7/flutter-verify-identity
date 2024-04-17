@@ -16,6 +16,7 @@ Here's some prerequisite details before jumping into this project.
 
 ### Libraries:
 - `go_router`
+- `equatable`
 - `flutter_bloc`
 - `shared_preferences`
 
