@@ -1,7 +1,7 @@
-abstract class Obfuscation {
+abstract class Obfuscator {
   final String _passphrase;
 
-  const Obfuscation(this._passphrase);
+  const Obfuscator(this._passphrase);
 
   /// Obfuscates the underlying passphrase.
   ///
