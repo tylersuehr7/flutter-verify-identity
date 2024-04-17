@@ -16,17 +16,15 @@ class Argon2Obfuscator extends Obfuscator {
   static const int _nonceBytes = 32;
   static const int _magicByte = 0xA3;
 
-  const Argon2Obfuscator(super._raw);
-
   @override
-  String obfuscate() {
+  String obfuscate(String raw) {
     final Uint8List nonce = generateSecureEntropy(_nonceBytes);
-    final Uint8List packed = _rawObfuscateWithArgon2(nonce);
+    final Uint8List packed = _rawObfuscateWithArgon2(raw, nonce);
     return base64Encode(packed);
   }
 
   @override
-  bool verify(String obfuscated) {
+  bool verify(String obfuscated, String raw) {
     final Uint8List verifiedPacked = base64Decode(obfuscated);
 
     if (verifiedPacked.length < _nonceBytes || verifiedPacked[0] != _magicByte) {
@@ -39,7 +37,7 @@ class Argon2Obfuscator extends Obfuscator {
       nonce[offset] = verifiedPacked[offset];
     }
 
-    final Uint8List unverifiedPacked = _rawObfuscateWithArgon2(nonce);
+    final Uint8List unverifiedPacked = _rawObfuscateWithArgon2(raw, nonce);
 
     return constantTimeComparison(verifiedPacked, unverifiedPacked);
   }
@@ -48,7 +46,7 @@ class Argon2Obfuscator extends Obfuscator {
   ///
   /// [nonce] the nonce to use in obfuscation
   /// [returns] the obfuscated data
-  Uint8List _rawObfuscateWithArgon2(final Uint8List nonce) {
+  static Uint8List _rawObfuscateWithArgon2(final String raw, final Uint8List nonce) {
     final Uint8List encodedRaw = utf8.encode(raw);
 
     final Uint8List derivedResult = (KeyDerivator("argon2")..init(
