@@ -1,15 +1,16 @@
 import 'package:demo_verify/domain/exceptions/missing_verification_settings_exception.dart';
 import 'package:demo_verify/domain/exceptions/unable_to_verify_identity_exception.dart';
 import 'package:demo_verify/domain/models/identity.dart';
-import 'package:demo_verify/domain/models/verification_data.dart';
 import 'package:demo_verify/domain/models/verification_mode.dart';
 import 'package:demo_verify/domain/models/verification_settings.dart';
 import 'package:demo_verify/domain/repositories/verification_settings_repository.dart';
+import 'package:demo_verify/utils/obfuscator.dart';
 
 final class VerificationService {
   final IVerificationSettingsRepository _verificationSettingsRepo;
+  final Obfuscator _obfuscator;
 
-  const VerificationService(this._verificationSettingsRepo);
+  const VerificationService(this._verificationSettingsRepo, this._obfuscator);
 
   Future<VerificationSettings> getVerificationSettings() async {
     final VerificationSettings? settings = await _verificationSettingsRepo.getVerificationSettings();
@@ -22,14 +23,11 @@ final class VerificationService {
   }
 
   Future<void> configurePin(final String pin) async {
-    // TODO: use cryptography here
+    final String hashedPin = _obfuscator.obfuscate(pin);
 
     final VerificationSettings settings = VerificationSettings(
       mode: VerificationMode.pin,
-      data: VerificationData(
-        salt: "insecure_example",
-        data: pin,
-      ),
+      data: hashedPin,
     );
 
     await _verificationSettingsRepo.setVerificationSettings(settings);
@@ -54,9 +52,7 @@ final class VerificationService {
       throw const UnableToVerifyIdentityException();
     }
 
-    // TODO: use cryptography here
-
-    if (pin != settings.data.data) {
+    if (!_obfuscator.verify(settings.data, pin)) {
       throw const UnableToVerifyIdentityException();
     }
   }
