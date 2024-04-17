@@ -15,6 +15,7 @@ Here's some prerequisite details before jumping into this project.
 - Building for Android & iOS
 
 ### Libraries:
+- `get_it`
 - `go_router`
 - `equatable`
 - `flutter_bloc`
