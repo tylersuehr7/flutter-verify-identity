@@ -33,9 +33,7 @@ class Argon2Obfuscator extends Obfuscator {
 
     // Extract the nonce from the obfuscated packed data
     final Uint8List nonce = Uint8List(_nonceBytes);
-    for (int offset = 1; offset < _nonceBytes + 1; offset++) {
-      nonce[offset] = verifiedPacked[offset];
-    }
+    arrayCopy(verifiedPacked, 1, _nonceBytes, nonce, 0);
 
     final Uint8List unverifiedPacked = _rawObfuscateWithArgon2(raw, nonce);
 
@@ -60,9 +58,9 @@ class Argon2Obfuscator extends Obfuscator {
     )).process(encodedRaw);
 
     final Uint8List packed = Uint8List(nonce.length + derivedResult.length + 1);
-    packed.add(_magicByte);
-    packed.addAll(nonce);
-    packed.addAll(derivedResult);
+    packed[0] = _magicByte;
+    arrayCopy(nonce, 0, nonce.length, packed, 1);
+    arrayCopy(derivedResult, 0, derivedResult.length, packed, 1 + nonce.length);
 
     return packed;
   }
